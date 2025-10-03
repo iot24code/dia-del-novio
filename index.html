@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz día de los Novios Amorcito</title>
+<!-- Fuente personalizada desde Google Fonts (simula la de tu imagen) -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        overflow-x: hidden; /* solo oculta scroll horizontal */
+        overflow-y: auto;   /* permite scroll vertical */
+        font-family: 'Arial', sans-serif;
+        background: #111;
+        color: white;
+        text-align: center;
+    }
+
+    /* Título principal con la fuente de la imagen */
+    h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #ff80aa;
+    text-shadow: 0 0 15px #ff4da6, 0 0 30px #ff1a8c;
+    margin-bottom: 30px;
+    }
+
+    /* Lluvia de corazones */
+    .heart {
+        position: fixed;
+        top: -10px;
+        color: red;
+        font-size: 20px;
+        animation: fall 5s linear infinite;
+    }
+    @keyframes fall {
+        0% {transform: translateY(-10px);}
+        100% {transform: translateY(100vh);}
+    }
+
+    /* Carrusel moderno */
+    .carousel {
+    position: relative;
+    max-width: 700px; /* tamaño reducido del carrusel */
+    height: auto;     /* altura automática */
+    aspect-ratio: 16/9; /* mantiene proporción de la imagen */
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: 0 0 25px rgba(255,0,100,0.6);
+    }
+
+    .carousel-track {
+    display: flex;
+    transition: transform 1.1s ease;
+    height: 100%;
+    }
+
+    .carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* muestra la imagen completa sin recortar */
+    flex-shrink: 0;
+    border-radius: 25px;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    background: #0b0b1a; /* rellena los bordes si la imagen no llena todo el contenedor */
+    }
+
+    .carousel img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+    }
+
+    /* Carrusel controls */
+    .carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 10px;
+    pointer-events: auto;
+    }
+
+    .carousel-controls span {
+    cursor:pointer;
+    background: rgba(0,0,0,0.5);
+    padding:10px;
+    border-radius:50%;
+    font-size:2rem;
+    color:#fff;
+    user-select:none;
+    transition: background 0.3s;
+    }
+    .carousel-controls span:hover {
+    background: rgba(255,0,150,0.7);
+    }
+
+    button {
+        margin: 5px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #ff4d6d;
+        color: white;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    button:hover {background: #ff1f4b;}
+
+    /* Tarjeta propuesta */
+    .card {
+        margin: 30px auto;
+        width: 350px;
+        padding: 20px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+
+    /* Cuadro emergente */
+    .popup {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%,-50%) scale(0.7);
+        background: #222;
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        display: none;
+        width: 80%;
+        max-width: 450px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+        text-align: justify;
+    }
+    .popup.show {
+        display: block;
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+    }
+
+    /* Music control */
+    #musicControl {
+    position: fixed;
+    top:15px; left:15px;
+    z-index: 10;
+    cursor:pointer;
+    background: rgba(0,0,0,0.5);
+    padding:12px;
+    border-radius:50%;
+    font-size:1.8rem;
+    transition: background 0.3s;
+    }
+    #musicControl:hover {
+    background: rgba(255,0,150,0.7);
+    }
+    /* Responsive */
+    @media(max-width:768px){
+    h1 { font-size:2.5rem; }
+    .text-box { font-size:1rem; }
+    .card { width:200px; }
+    }
+
+</style>
+</head>
+<body>
+    <h1>Feliz día de los Novios Amorcito</h1>
+
+    <!-- Botón música -->
+    <button id="musicBtn">🎵</button>
+    <audio id="bgMusic" loop>
+        <source src="Axel.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Carrusel moderno -->
+    <div class="carousel">
+        <div class="carousel-track">
+        <img src="1.jpg" class="active">
+        <img src="3.JPG">
+        <img src="4.jpg">
+        <img src="5.jpg">
+        <img src="6.jpg">
+        <img src="7.jpg">
+        <img src="8.JPG">
+        </div>
+        <div class="carousel-controls">
+        <span id="prev">&#10094;</span>
+        <span id="next">&#10095;</span>
+        </div>
+    </div>
+
+
+    <!-- Tarjeta propuesta -->
+    <div class="card">
+        <p>Quería volver a recordarte la propuesta que un día te hice, con nerviosismo y con mi mano temblando, camino a tu casa:<br><br>
+        ¿Quieres ser mi novia?</p>
+        <button onclick="sayYes()">💖 Sí</button>
+        <button onclick="sayNo()">💔 No</button>
+    </div>
+
+    <!-- Botón extra -->
+    <button onclick="finalStep()">Si estás segura presiona</button>
+
+    <!-- Popups -->
+    <div class="popup" id="popupYes">
+        <h2>💍 Mi amor</h2>
+        <p>Desde aquel día en que te escribí aquella carta, hasta el momento en que mi voz temblando te confesó lo que sentía, supe que quería estar contigo. 
+        Hoy me siento el más afortunado, porque a tu lado construiremos un futuro lleno de amor, complicidad y sueños compartidos. 
+        Estos anillos son símbolo de la promesa que tenemos: siempre juntos, pase lo que pase. 💕</p>
+        <img src="anillo.png" width="100">
+        <br><button onclick="closePopup('popupYes')">Cerrar</button>
+    </div>
+
+    <div class="popup" id="popupNo">
+        <h2>😢 Amor mío</h2>
+        <p>Encerio presionaste NO?..., si llegaste a presionar te cuento que ya no hay vuelta atras eres solamente mia y no te voy a dejar amorcito; Asi que vuelve a inte. 💔</p>
+        <button onclick="closePopup('popupNo')">Cerrar</button>
+    </div>
+
+    <div class="popup" id="popupHistory">
+        <h2>💌 Te Extraño</h2>
+        <p>
+        Te extraño de maneras que ni las palabras alcanzan a describir. Te extraño cuando algo me sale bien y, antes de celebrarlo, mi primer impulso es correr a contártelo. Te extraño cuando algo me sale mal y mi corazón busca tu voz, esa que siempre sabe decirme que todo pasará. Te extraño en las tardes largas y silenciosas, cuando no estás para llenarlas con tus bromas, tus historias o tus abrazos inesperados que lo cambian todo.
+        </p>
+
+        <p>
+        Te extraño porque nadie sabe mirarme como tú, con esa paciencia que me calma incluso en mis días más grises. Nadie me hace reír con esa risa tuya que me envuelve y me contagia sin remedio. Nadie me escucha como tú, con esa atención que convierte cada palabra mía en algo importante, como si todo en mí valiera la pena.
+        </p>
+
+        <p>
+        Y es entonces cuando me doy cuenta de que, por más que busque distracciones, todo me conduce de nuevo a ti: al lugar donde tu presencia transformaba lo cotidiano en algo extraordinario. Contigo, hasta lo más sencillo —caminar, hablar de nada, compartir un silencio— se sentía inmenso. Sin ti, en cambio, el mundo se vuelve un poco más opaco, como si le faltara un color que sólo tú sabes dar.
+        </p>
+
+        <p>
+        Te extraño cuando cierro los ojos y tu imagen aparece tan nítida que casi puedo tocarte. Te extraño en las risas que no compartimos, en las conversaciones que se quedan a medias, en la piel que todavía guarda la memoria de tu contacto aunque pasen los días.
+        </p>
+
+        <p>
+        No es que me falte compañía ni palabras… es que me faltas tú. Y eso no se sustituye con nada. Porque lo que eres para mí no cabe en comparación ni en medida.
+        </p>
+
+        <p>
+        Por eso te extraño. Porque nada ni nadie se parece a ti. 💕
+        </p>
+
+        <p style="color:#ffcc00; font-weight:bold; text-align:center;">
+            Eres mi princesa, mi destino y mi felicidad. 💛
+        </p>
+        <button onclick="closePopup('popupHistory')">Cerrar</button>
+    </div>
+
+<script>
+    // Lluvia de corazones
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (Math.random()*20+10)+"px";
+        heart.style.animationDuration = (Math.random()*3+2)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),5000);
+    },300);
+
+    // Carrusel moderno
+    // Carrusel infinito (sin saltos)
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    let currentIndex = 0;
+
+    // Duplicamos las slides al inicio y al final para efecto loop
+    const totalSlides = slides.length;
+    slides.forEach(slide => track.appendChild(slide.cloneNode(true)));
+    slides.forEach(slide => track.insertBefore(slide.cloneNode(true), track.firstChild));
+
+    const allSlides = Array.from(track.children);
+    const slideWidth = allSlides[0].getBoundingClientRect().width;
+
+    // Posicionamos al primer slide original en el centro del track duplicado
+    currentIndex = totalSlides;
+    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+    function updateCarousel() {
+    track.style.transition = 'transform 1.1s ease';
+    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+
+    // Avanzar siguiente
+    document.getElementById('next').addEventListener('click', () => {
+    currentIndex++;
+    updateCarousel();
+    // Reinicio infinito
+    track.addEventListener('transitionend', loopCheck);
+    });
+
+    // Retroceder anterior
+    document.getElementById('prev').addEventListener('click', () => {
+    currentIndex--;
+    updateCarousel();
+    track.addEventListener('transitionend', loopCheck);
+    });
+
+    function loopCheck() {
+    track.style.transition = 'none';
+    if(currentIndex >= totalSlides * 2){
+        currentIndex = totalSlides;
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+    if(currentIndex < totalSlides){
+        currentIndex = totalSlides * 2 - 1;
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+    track.removeEventListener('transitionend', loopCheck);
+    }
+
+
+    // Popups
+    function sayYes(){document.getElementById("popupYes").classList.add("show");}
+    function sayNo(){document.getElementById("popupNo").classList.add("show");}
+    function closePopup(id){document.getElementById(id).classList.remove("show");}
+
+    // Música
+    const music = document.getElementById("bgMusic");
+    document.getElementById("musicBtn").onclick = () => {
+        if(music.paused){music.play();} else {music.pause();}
+    };
+
+    // Mostrar historia final
+    function finalStep(){
+        document.getElementById("popupHistory").classList.add("show");
+    }
+</script>
+</body>
+</html>
